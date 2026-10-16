@@ -5,92 +5,88 @@ import random
 import simulation.mechanics.position_keep.speed_up as speed_up
 from data_types import PositionKeepMode
 from race.race import Runner, Race
+from simulation.mechanics.position_keep import overtake, pace_up_ex, pace_up, \
+    pace_down
 from utils import section_boundaries
 
 
-def update_position_keep(
-        runner: Runner,
-        race: Race,
-        current_frame: int,
-        fps: int
-) -> None:
-    if not position_keep_active(
-            runner.state.position.distance,
-            race.course.distance
-    ):
-        if runner.state.position_keep.mode is not PositionKeepMode.NORMAL:
-            update_pos_keep_state(
-                runner, PositionKeepMode.NORMAL,
-                None,
-                None
-            )
-        return
+class PositionKeep:
+    def __init__(self):
+        self.active = True
+        self.current_mode: PositionKeepMode = PositionKeepMode.NORMAL
+        self.next_check_frame = 0
+        self.start_distance = None
 
-    current_mode = runner.state.position_keep.mode
-    next_check_frame = runner.state.position_keep.next_check_frame
+    def update(
+            self,
+            runner: Runner,
+            race: Race,
+            current_frame: int,
+            fps: int
+    ) -> PositionKeepMode | None:
+        if not self.active:
+            return None
 
-    # Check to enter non-normal modes
-    if current_mode is PositionKeepMode.NORMAL:
-        if next_check_frame is not None and current_frame < next_check_frame:
-            return
+        distance = runner.state.position.distance
+        course_distance = race.course.distance
 
-        # Check entry conditions for all modes
-        # Every mode's condition should be mutually exclusive except for
-        # PACE_UP_EX
-        entry_conditions = get_entry_conditions(runner, race)
+        # Exit state machine if past section 10
+        if not position_keep_active(distance, course_distance):
+            self.active = False
+            return None
 
-        # Wit check
-        check = wit_check(runner.entry.final_stats.wit)
-        if any(entry_conditions) and check:
+        # Check to enter non-NORMAL modes
+        if self.current_mode is PositionKeepMode.NORMAL:
+            if current_frame < self.next_check_frame:
+                return PositionKeepMode.NORMAL
+
+            # Check entry conditions for all modes
+            entry_conditions = get_entry_conditions(runner, race)
+            if not any(entry_conditions):
+                # No entry conditions are fulfilled
+                self.next_check_frame = current_frame + 2 * fps
+                return PositionKeepMode.NORMAL
+
+            # Wit check
+            if not wit_check(runner.entry.final_stats.wit):
+                self.next_check_frame = current_frame + 2 * fps
+                return PositionKeepMode.NORMAL
+
             # Prioritise PACE_UP_EX if entry condition is True
-            # if entry_conditions[4]:
-            #     update_runner_pos_keep_state(
-            #         runner,
-            #         PositionKeepMode.PACE_UP_EX,
-            #         runner.state.position.distance,
-            #         None
-            #     )
-            #     return
+            if entry_conditions[-1]:
+                new_mode = PositionKeepMode.PACE_UP_EX
+            else:
+                new_mode = PositionKeepMode(entry_conditions.index(True) + 1)
 
-            # if entry_conditions[4]:
-            #     new_mode = PositionKeepMode.PACE_UP_EX
-            # else:
-            #     new_mode = PositionKeepMode(entry_conditions.index(True) + 1)
-
-            update_pos_keep_state(
-                runner,
-                PositionKeepMode(entry_conditions.index(True) + 1),
-                runner.state.position.distance,
+            self.update_state(
+                new_mode,
+                distance,
                 None
             )
-            return
-        runner.state.position_keep.next_check_frame = current_frame + 2 * fps
-        return
+            return new_mode
 
-    # In non-normal mode
-    start_distance = runner.state.position_keep.start_distance
-    section_length = math.floor(race.course.distance / 24)
+        # Check to exit a non-NORMAL mode
+        section_length = math.floor(course_distance / 24)
+        exit_condition = get_exit_condition(self.current_mode, runner, race)
+        completed_section = distance - self.start_distance >= section_length
 
-    # Runner fulfills mode's exit condition
-    exit_conditions = get_exit_conditions(runner, race)
-    if exit_conditions[current_mode.value - 1]:
-        update_pos_keep_state(
-            runner,
-            PositionKeepMode.NORMAL,
-            None,
-            current_frame + 3 * fps
-        )
-        return
+        if exit_condition or completed_section:
+            self.update_state(
+                PositionKeepMode.NORMAL,
+                None,
+                current_frame + 3 * fps
+            )
+        return self.current_mode
 
-    # Runner has run in mode for length of one section
-    if runner.state.position.distance - start_distance >= section_length:
-        update_pos_keep_state(
-            runner,
-            PositionKeepMode.NORMAL,
-            None,
-            current_frame + 3 * fps
-        )
-        return
+    def update_state(
+            self,
+            new_mode: PositionKeepMode,
+            start_distance: float | None,
+            next_check_frame: int | None
+    ):
+        self.current_mode = new_mode
+        self.start_distance = start_distance
+        self.next_check_frame = next_check_frame
 
 
 def position_keep_active(
@@ -101,47 +97,35 @@ def position_keep_active(
     return current_position <= sections[9]
 
 
-def update_pos_keep_state(
-        runner: Runner,
-        mode: PositionKeepMode | None,
-        start_distance: float | None,
-        next_check_frame: int | None
-) -> None:
-    runner.state.position_keep.mode = mode
-    runner.state.position_keep.start_distance = start_distance
-    runner.state.position_keep.next_check_frame = next_check_frame
-
-
 def get_entry_conditions(runner: Runner, race: Race) -> list[bool]:
+    # All entry conditions except for PACE_UP_EX should be mutually exclusive
     return [
         speed_up.entry_condition(runner, race),
-        # overtake.entry_condition(runner, race),
-        # pace_up.entry_condition(runner, race),
-        # pace_down.entry_condition(runner, race),
-        # pace_up_ex.entry_condition(runner, race),
+        overtake.entry_condition(runner, race),
+        pace_up.entry_condition(runner, race),
+        pace_down.entry_condition(runner, race),
+        pace_up_ex.entry_condition(runner, race),
     ]
 
 
-def get_exit_conditions(runner: Runner, race: Race) -> list[bool]:
-    return [
-        speed_up.exit_condition(runner, race),
-        # overtake.exit_condition(runner, race),
-        # pace_up.exit_condition(runner, race),
-        # pace_down.exit_condition(runner, race),
-        # pace_up_ex.exit_condition(runner, race),
-    ]
+EXIT_CONDITIONS = {
+    PositionKeepMode.SPEED_UP: speed_up.exit_condition,
+    PositionKeepMode.OVERTAKE: overtake.exit_condition,
+    PositionKeepMode.PACE_UP: pace_up.exit_condition,
+    PositionKeepMode.PACE_DOWN: pace_down.exit_condition,
+    PositionKeepMode.PACE_UP_EX: pace_up_ex.exit_condition,
+}
+
+
+def get_exit_condition(
+        current_mode: PositionKeepMode,
+        runner: Runner,
+        race: Race
+) -> bool:
+    condition = EXIT_CONDITIONS[current_mode]
+    return condition(runner, race)
 
 
 def wit_check(wit_stat: float) -> bool:
     chance = 20 * math.log10(wit_stat * 0.1)
     return random.uniform(0, 100) < chance
-
-
-# Testing
-if __name__ == '__main__':
-    max_value = 100000
-    rolls = [wit_check(100) for _ in range(max_value)]
-
-    print(sum(rolls))
-    print(max_value - sum(rolls))
-    print(f'Chance: {sum(rolls) / max_value * 100:.2f}%')
