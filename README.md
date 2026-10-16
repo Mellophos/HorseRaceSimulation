@@ -6,12 +6,12 @@ Python-based horse racing simulation.
 
 ## Goal
 
-Adapting [Umamusume's](https://umamusume.com/) deep race simulation on a global scale.
+Adapting [Umamusume's](https://umamusume.com/) race simulation on a global scale.
 
 ## Soon-to-be Features
 
 - Intricate race mechanics based off the [Umamusume](https://umamusume.com/) game
-- Various real-life racetracks to choose from
+- Various real-life racetracks to choose and race from
 - Support for custom racetracks.
 
 ## Roadmap
@@ -20,8 +20,9 @@ Adapting [Umamusume's](https://umamusume.com/) deep race simulation on a global 
 - Core Simulation:
     - [ ] Speed Calculations
     - [ ] Lane Movement
-- [ ] First Race Mechanic: Position Keeping (`simulation/mechanics/position_keep`)
+- [X] First Race Mechanic: Position Keeping (`simulation/mechanics/position_keep`)
 - [ ] Documentation: Writing docstrings for functions and classes
+- [ ] Transitioning to state machines
 
 ## References
 
