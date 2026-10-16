@@ -31,11 +31,11 @@ class Grade(Enum):
 
 
 class Strategy(Enum):
-    FRONT = auto()
-    PACE = auto()
-    LATE = auto()
-    END = auto()
-    # RUNAWAY = auto() # UNCOMMENT ONLY WHEN READY
+    # RUNAWAY = 0 # UNCOMMENT ONLY WHEN READY
+    FRONT = 1
+    PACE = 2
+    LATE = 3
+    END = 4
 
 
 class Mood(Enum):

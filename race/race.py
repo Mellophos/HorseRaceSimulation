@@ -237,6 +237,16 @@ class Race:
 
         return order.index(runner)
 
+    # Might move to different module
+    def get_pacemaker(self) -> Runner:
+        strat_order = self.get_strategy_order(
+            Strategy(min(
+                (r.entry.strategy for r in self.runners),
+                key=lambda x: x.value)
+            )
+        )
+        return strat_order[0]
+
 
 def create_runner_objects(
         entry_list: list[Entry],
