@@ -1,0 +1,103 @@
+{
+  "name": "Nakayama",
+  "surface": "turf",
+  "distance": 2500,
+  "course_event_list": [
+    {
+      "event_id": 0,
+      "trigger_location": 100,
+      "corner_number": 3,
+      "length": 146
+    },
+    {
+      "event_id": 0,
+      "trigger_location": 246,
+      "corner_number": 4,
+      "length": 250
+    },
+    {
+      "event_id": 2,
+      "trigger_location": 496,
+      "straight_type": 1,
+      "is_start": true
+    },
+    {
+      "event_id": 5,
+      "trigger_location": 621,
+      "slope_percentage": 2,
+      "length": 110
+    },
+    {
+      "event_id": 5,
+      "trigger_location": 825,
+      "slope_percentage": 1.5,
+      "length": 200
+    },
+    {
+      "event_id": 2,
+      "trigger_location": 875,
+      "straight_type": 1,
+      "is_start": false
+    },
+    {
+      "event_id": 0,
+      "trigger_location": 875,
+      "corner_number": 1,
+      "length": 250
+    },
+    {
+      "event_id": 0,
+      "trigger_location": 1125,
+      "corner_number": 2,
+      "length": 250
+    },
+    {
+      "event_id": 5,
+      "trigger_location": 1125,
+      "slope_percentage": -1.5,
+      "length": 400
+    },
+    {
+      "event_id": 2,
+      "trigger_location": 1375,
+      "straight_type": 2,
+      "is_start": true
+    },
+    {
+      "event_id": 2,
+      "trigger_location": 1700,
+      "straight_type": 2,
+      "is_start": false
+    },
+    {
+      "event_id": 0,
+      "trigger_location": 1700,
+      "corner_number": 3,
+      "length": 250
+    },
+    {
+      "event_id": 0,
+      "trigger_location": 1950,
+      "corner_number": 4,
+      "length": 240
+    },
+    {
+      "event_id": 2,
+      "trigger_location": 2190,
+      "straight_type": 1,
+      "is_start": true
+    },
+    {
+      "event_id": 5,
+      "trigger_location": 2325,
+      "slope_percentage": 2,
+      "length": 110
+    },
+    {
+      "event_id": 2,
+      "trigger_location": 2500,
+      "straight_type": 1,
+      "is_start": false
+    }
+  ]
+}

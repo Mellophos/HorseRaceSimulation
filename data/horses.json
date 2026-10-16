@@ -1,0 +1,466 @@
+[
+  {
+    "name": "Special Week",
+    "aptitude": {
+      "surface": {
+        "turf": "A",
+        "dirt": "G"
+      },
+      "distance": {
+        "sprint": "F",
+        "mile": "C",
+        "intermediate": "A",
+        "long": "A",
+        "extended": "A"
+      },
+      "strategy": {
+        "front": "G",
+        "pace": "A",
+        "late": "A",
+        "end": "C"
+      }
+    },
+    "stats": {
+      "speed": 102,
+      "stamina": 108,
+      "power": 120,
+      "guts": 110,
+      "wit": 110
+    }
+  },
+  {
+    "name": "Tokai Teio",
+    "aptitude": {
+      "surface": {
+        "turf": "A",
+        "dirt": "G"
+      },
+      "distance": {
+        "sprint": "G",
+        "mile": "D",
+        "intermediate": "A",
+        "long": "A",
+        "extended": "C"
+      },
+      "strategy": {
+        "front": "D",
+        "pace": "A",
+        "late": "C",
+        "end": "E"
+      }
+    },
+    "stats": {
+      "speed": 109,
+      "stamina": 109,
+      "power": 102,
+      "guts": 112,
+      "wit": 118
+    }
+  },
+  {
+    "name": "Maruzensky",
+    "aptitude": {
+      "surface": {
+        "turf": "A",
+        "dirt": "D"
+      },
+      "distance": {
+        "sprint": "B",
+        "mile": "A",
+        "intermediate": "A",
+        "long": "E",
+        "extended": "G"
+      },
+      "strategy": {
+        "front": "A",
+        "pace": "E",
+        "late": "G",
+        "end": "G"
+      }
+    },
+    "stats": {
+      "speed": 118,
+      "stamina": 84,
+      "power": 105,
+      "guts": 122,
+      "wit": 121
+    }
+  },
+  {
+    "name": "Oguri Cap",
+    "aptitude": {
+      "surface": {
+        "turf": "A",
+        "dirt": "B"
+      },
+      "distance": {
+        "sprint": "B",
+        "mile": "A",
+        "intermediate": "A",
+        "long": "A",
+        "extended": "G"
+      },
+      "strategy": {
+        "front": "F",
+        "pace": "A",
+        "late": "A",
+        "end": "D"
+      }
+    },
+    "stats": {
+      "speed": 124,
+      "stamina": 81,
+      "power": 130,
+      "guts": 103,
+      "wit": 112
+    }
+  },
+  {
+    "name": "Symboli Rudolf",
+    "aptitude": {
+      "surface": {
+        "turf": "A",
+        "dirt": "G"
+      },
+      "distance": {
+        "sprint": "G",
+        "mile": "C",
+        "intermediate": "A",
+        "long": "A",
+        "extended": "A"
+      },
+      "strategy": {
+        "front": "B",
+        "pace": "A",
+        "late": "A",
+        "end": "C"
+      }
+    },
+    "stats": {
+      "speed": 106,
+      "stamina": 111,
+      "power": 101,
+      "guts": 118,
+      "wit": 114
+    }
+  },
+  {
+    "name": "Rice Shower",
+    "aptitude": {
+      "surface": {
+        "turf": "A",
+        "dirt": "G"
+      },
+      "distance": {
+        "sprint": "G",
+        "mile": "D",
+        "intermediate": "A",
+        "long": "A",
+        "extended": "A"
+      },
+      "strategy": {
+        "front": "B",
+        "pace": "A",
+        "late": "C",
+        "end": "G"
+      }
+    },
+    "stats": {
+      "speed": 87,
+      "stamina": 143,
+      "power": 86,
+      "guts": 125,
+      "wit": 109
+    }
+  },
+  {
+    "name": "Gold Ship",
+    "aptitude": {
+      "surface": {
+        "turf": "A",
+        "dirt": "G"
+      },
+      "distance": {
+        "sprint": "G",
+        "mile": "C",
+        "intermediate": "A",
+        "long": "A",
+        "extended": "A"
+      },
+      "strategy": {
+        "front": "G",
+        "pace": "B",
+        "late": "B",
+        "end": "A"
+      }
+    },
+    "stats": {
+      "speed": 106,
+      "stamina": 124,
+      "power": 129,
+      "guts": 99,
+      "wit": 92
+    }
+  },
+  {
+    "name": "Daiwa Scarlet",
+    "aptitude": {
+      "surface": {
+        "turf": "A",
+        "dirt": "G"
+      },
+      "distance": {
+        "sprint": "G",
+        "mile": "A",
+        "intermediate": "A",
+        "long": "A",
+        "extended": "G"
+      },
+      "strategy": {
+        "front": "A",
+        "pace": "A",
+        "late": "E",
+        "end": "G"
+      }
+    },
+    "stats": {
+      "speed": 109,
+      "stamina": 99,
+      "power": 103,
+      "guts": 122,
+      "wit": 117
+    }
+  },
+  {
+    "name": "Vodka",
+    "aptitude": {
+      "surface": {
+        "turf": "A",
+        "dirt": "G"
+      },
+      "distance": {
+        "sprint": "G",
+        "mile": "A",
+        "intermediate": "A",
+        "long": "A",
+        "extended": "G"
+      },
+      "strategy": {
+        "front": "C",
+        "pace": "B",
+        "late": "A",
+        "end": "F"
+      }
+    },
+    "stats": {
+      "speed": 124,
+      "stamina": 79,
+      "power": 136,
+      "guts": 97,
+      "wit": 114
+    }
+  },
+  {
+    "name": "Mejiro McQueen",
+    "aptitude": {
+      "surface": {
+        "turf": "A",
+        "dirt": "E"
+      },
+      "distance": {
+        "sprint": "G",
+        "mile": "G",
+        "intermediate": "A",
+        "long": "A",
+        "extended": "A"
+      },
+      "strategy": {
+        "front": "B",
+        "pace": "A",
+        "late": "D",
+        "end": "F"
+      }
+    },
+    "stats": {
+      "speed": 87,
+      "stamina": 136,
+      "power": 87,
+      "guts": 125,
+      "wit": 115
+    }
+  },
+  {
+    "name": "Grass Wonder",
+    "aptitude": {
+      "surface": {
+        "turf": "A",
+        "dirt": "G"
+      },
+      "distance": {
+        "sprint": "C",
+        "mile": "A",
+        "intermediate": "A",
+        "long": "A",
+        "extended": "G"
+      },
+      "strategy": {
+        "front": "F",
+        "pace": "A",
+        "late": "A",
+        "end": "F"
+      }
+    },
+    "stats": {
+      "speed": 118,
+      "stamina": 91,
+      "power": 129,
+      "guts": 96,
+      "wit": 116
+    }
+  },
+  {
+    "name": "El Condor Pasa",
+    "aptitude": {
+      "surface": {
+        "turf": "A",
+        "dirt": "B"
+      },
+      "distance": {
+        "sprint": "C",
+        "mile": "A",
+        "intermediate": "A",
+        "long": "A",
+        "extended": "G"
+      },
+      "strategy": {
+        "front": "E",
+        "pace": "A",
+        "late": "A",
+        "end": "C"
+      }
+    },
+    "stats": {
+      "speed": 110,
+      "stamina": 98,
+      "power": 103,
+      "guts": 121,
+      "wit": 118
+    }
+  },
+  {
+    "name": "Taiki Shuttle",
+    "aptitude": {
+      "surface": {
+        "turf": "A",
+        "dirt": "B"
+      },
+      "distance": {
+        "sprint": "A",
+        "mile": "A",
+        "intermediate": "G",
+        "long": "G",
+        "extended": "G"
+      },
+      "strategy": {
+        "front": "C",
+        "pace": "A",
+        "late": "E",
+        "end": "G"
+      }
+    },
+    "stats": {
+      "speed": 118,
+      "stamina": 87,
+      "power": 119,
+      "guts": 113,
+      "wit": 113
+    }
+  },
+  {
+    "name": "Seiun Sky",
+    "aptitude": {
+      "surface": {
+        "turf": "A",
+        "dirt": "G"
+      },
+      "distance": {
+        "sprint": "G",
+        "mile": "F",
+        "intermediate": "A",
+        "long": "A",
+        "extended": "A"
+      },
+      "strategy": {
+        "front": "A",
+        "pace": "B",
+        "late": "D",
+        "end": "E"
+      }
+    },
+    "stats": {
+      "speed": 120,
+      "stamina": 120,
+      "power": 108,
+      "guts": 101,
+      "wit": 101
+    }
+  },
+  {
+    "name": "Mihono Bourbon",
+    "aptitude": {
+      "surface": {
+        "turf": "A",
+        "dirt": "G"
+      },
+      "distance": {
+        "sprint": "C",
+        "mile": "B",
+        "intermediate": "A",
+        "long": "A",
+        "extended": "A"
+      },
+      "strategy": {
+        "front": "A",
+        "pace": "E",
+        "late": "G",
+        "end": "G"
+      }
+    },
+    "stats": {
+      "speed": 117,
+      "stamina": 88,
+      "power": 112,
+      "guts": 124,
+      "wit": 109
+    }
+  },
+  {
+    "name": "Air Groove",
+    "aptitude": {
+      "surface": {
+        "turf": "A",
+        "dirt": "G"
+      },
+      "distance": {
+        "sprint": "D",
+        "mile": "B",
+        "intermediate": "A",
+        "long": "A",
+        "extended": "G"
+      },
+      "strategy": {
+        "front": "D",
+        "pace": "A",
+        "late": "A",
+        "end": "G"
+      }
+    },
+    "stats": {
+      "speed": 111,
+      "stamina": 105,
+      "power": 105,
+      "guts": 112,
+      "wit": 117
+    }
+  }
+]
