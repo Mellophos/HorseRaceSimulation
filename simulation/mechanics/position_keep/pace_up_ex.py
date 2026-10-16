@@ -1,5 +1,4 @@
 # Path: pace_up_ex.py
-from data_types import Strategy
 from race import Runner, Race
 from tests import test_race
 

@@ -1,8 +1,8 @@
 # Path: horse-racing-sim/course\presets\__init__.py
 # __init__.py
 
-from .racecourses import *
 from .preset_course import preset_course, TrackID
+from .racecourses import *
 
 __all__ = [
     'TrackID',

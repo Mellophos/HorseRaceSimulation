@@ -9,7 +9,9 @@ from tests import test_horse_state
 def update_position(horse_state: HorseState, old_speed: float,
                     duration: float):
     average_speed = Fraction((
-        old_speed + horse_state.movement.current_speed)/ 2).limit_denominator()
+                                     old_speed +
+                                     horse_state.movement.current_speed) /
+                             2).limit_denominator()
     horse_state.position.distance += (average_speed * duration)
 
 

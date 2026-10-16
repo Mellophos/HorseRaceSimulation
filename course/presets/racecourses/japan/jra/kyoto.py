@@ -3,7 +3,6 @@
 from course import Course
 from course.presets.config import CourseConfig, TrackID
 from course.presets.racecourse import Racecourse, track_config
-from course.presets.track_layout import LoopingTrackLayout
 from data_types import Surface
 
 

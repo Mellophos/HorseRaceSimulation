@@ -14,7 +14,7 @@ class Tokyo(Racecourse):
 
     turf = LoopingTrackLayout(
         lap_distance=2083,
-        events= [
+        events=[
             Straight(trigger_location=0, straight_type=1, is_start=False),
             Slope(trigger_location=471, gradient=1.19, length=176),
             Straight(trigger_location=525, straight_type=1, is_start=True),

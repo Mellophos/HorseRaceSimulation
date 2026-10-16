@@ -31,7 +31,8 @@ def exit_condition(runner: Runner, race: Race) -> bool:
     return runner_pos < pacemaker_pos - rand_value
 
 
-def calculate_course_factor(course_distance: int, strategy: Strategy) -> tuple[float, float]:
+def calculate_course_factor(course_distance: int, strategy: Strategy) -> tuple[
+    float, float]:
     course_factor = 0.0008 * (course_distance - 1000) + 1.0
     if strategy is Strategy.PACE:
         return 3.0, 5.0 * course_factor
