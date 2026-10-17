@@ -20,7 +20,7 @@ def _load_racecourses():
 
 def get_racecourse(track_id: TrackID) -> type[Racecourse]:
     try:
-        return Racecourse._REGISTRY[track_id]
+        return Racecourse.REGISTRY[track_id]
     except KeyError:
         raise ValueError(
             f"No racecourse registered for {track_id!r}"

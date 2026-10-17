@@ -13,7 +13,7 @@ Configuration = dict[Surface, dict[tuple[int, str | None], TrackLayout]]
 
 
 class Racecourse(ABC):
-    _REGISTRY: ClassVar[dict[TrackID, type["Racecourse"]]] = {}
+    REGISTRY: ClassVar[dict[TrackID, type["Racecourse"]]] = {}
 
     TRACK_ID: ClassVar[TrackID]
     DISTANCES: ClassVar[Configuration] = {}
@@ -26,12 +26,12 @@ class Racecourse(ABC):
                 f"{cls.__name__} must define TRACK_ID"
             )
 
-        if cls.TRACK_ID in Racecourse._REGISTRY:
+        if cls.TRACK_ID in Racecourse.REGISTRY:
             raise ValueError(
                 f"Duplicate racecourse ID: {cls.TRACK_ID}"
             )
 
-        Racecourse._REGISTRY[cls.TRACK_ID] = cls
+        Racecourse.REGISTRY[cls.TRACK_ID] = cls
 
     def get_track(self, config: CourseConfig) -> TrackLayout:
         try:
