@@ -43,10 +43,13 @@ class RaceSimulator:
         self.frames_elapsed += 1
 
         # Update last spurt state
+        # Update Position Keeping state
         # Update target speed
         # Calculate acceleration
         # Update phase
         # Calculate distance and position
+        # Calculate HP consumption
+        # Consume HP
         # Check for slope
 
         # Basic temporary movement
