@@ -2,11 +2,11 @@
 import math
 import random
 
-import simulation.mechanics.position_keep.speed_up as speed_up
 from data_types import PositionKeepMode
 from race.race import Runner, Race
-from simulation.mechanics.position_keep import overtake, pace_up_ex, pace_up, \
-    pace_down
+from simulation.mechanics.position_keep import (
+    speed_up, overtake, pace_up_ex, pace_up, pace_down
+)
 from utils import section_boundaries
 
 
@@ -24,6 +24,7 @@ class PositionKeep:
             current_frame: int,
             fps: int
     ) -> PositionKeepMode | None:
+        """Update a Runner's Position Keeping state"""
         if not self.active:
             return None
 
@@ -31,65 +32,86 @@ class PositionKeep:
         course_distance = race.course.distance
 
         # Exit state machine if past section 10
-        if not position_keep_active(distance, course_distance):
+        if not is_position_keep_active(distance, course_distance):
             self.active = False
             return None
 
-        # Check to enter non-NORMAL modes
+        # Check to enter a non-NORMAL mode
         if self.current_mode is PositionKeepMode.NORMAL:
-            if current_frame < self.next_check_frame:
-                return PositionKeepMode.NORMAL
+            return self._try_enter_mode(
+                runner, race, distance, current_frame, fps
+            )
 
-            # Check entry conditions for all modes
-            entry_conditions = get_entry_conditions(runner, race)
-            if not any(entry_conditions):
-                # No entry conditions are fulfilled
-                self.next_check_frame = current_frame + 2 * fps
-                return PositionKeepMode.NORMAL
+        # Check to exit a non-NORMAL mode
+        return self._try_exit_mode(
+            runner, race, distance, course_distance, current_frame, fps
+        )
 
+    def _try_enter_mode(
+            self,
+            runner: Runner,
+            race: Race,
+            distance: float,
+            current_frame: int,
+            fps: int
+    ) -> PositionKeepMode:
+        """Check to enter a non-NORMAL mode, must pass a wit check."""
+        if current_frame < self.next_check_frame:
+            return PositionKeepMode.NORMAL
+
+        # Check entry conditions for all modes
+        entry_conditions = get_entry_conditions(runner, race)
+        if not any(entry_conditions):
+            # No entry conditions are fulfilled
+            self.next_check_frame = current_frame + 2 * fps
+            return PositionKeepMode.NORMAL
+
+        # Priotitise PACE_UP_EX if entry condition is True
+        if entry_conditions[-1]:
+            new_mode = PositionKeepMode.PACE_UP_EX
+        else:
             # Wit check
             if not wit_check(runner.entry.final_stats.wit):
                 self.next_check_frame = current_frame + 2 * fps
                 return PositionKeepMode.NORMAL
-
-            # Prioritise PACE_UP_EX if entry condition is True
-            if entry_conditions[-1]:
-                new_mode = PositionKeepMode.PACE_UP_EX
             else:
                 new_mode = PositionKeepMode(entry_conditions.index(True) + 1)
 
-            self.update_state(
-                new_mode,
-                distance,
-                None
-            )
-            return new_mode
+        self.enter_mode(new_mode, distance)
+        return new_mode
 
-        # Check to exit a non-NORMAL mode
+    def _try_exit_mode(
+            self,
+            runner: Runner,
+            race: Race,
+            distance: float,
+            course_distance: int,
+            current_frame: int,
+            fps: int
+    ) -> PositionKeepMode:
+        """Check to exit a non-NORMAL mode."""
         section_length = math.floor(course_distance / 24)
         exit_condition = get_exit_condition(self.current_mode, runner, race)
         completed_section = distance - self.start_distance >= section_length
 
         if exit_condition or completed_section:
-            self.update_state(
-                PositionKeepMode.NORMAL,
-                None,
-                current_frame + 3 * fps
-            )
+            self.exit_mode(current_frame + 3 * fps)
         return self.current_mode
 
-    def update_state(
-            self,
-            new_mode: PositionKeepMode,
-            start_distance: float | None,
-            next_check_frame: int | None
-    ):
-        self.current_mode = new_mode
-        self.start_distance = start_distance
+    def enter_mode(self, mode: PositionKeepMode, distance: float) -> None:
+        """Enter a non-NORMAL mode."""
+        self.current_mode = mode
+        self.start_distance = distance
+        self.next_check_frame = None
+
+    def exit_mode(self, next_check_frame: int) -> None:
+        """Exit a non-NORMAL mode."""
+        self.current_mode = PositionKeepMode.NORMAL
+        self.start_distance = None
         self.next_check_frame = next_check_frame
 
 
-def position_keep_active(
+def is_position_keep_active(
         current_position: float,
         course_distance: int
 ) -> bool:
